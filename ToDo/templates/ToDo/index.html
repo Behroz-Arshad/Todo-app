@@ -1,0 +1,30 @@
+{% extends 'ToDo/base.html' %}
+{% block content %}
+    <form class="form-inline" action="{% url 'addtodo' %}" method="post">
+    {% csrf_token %}
+<div class="row mt-4">
+    <div class="col">
+        <h2>Add Items</h2>
+        <input type="text" class="form-control mb-2 mr-sm-2"  placeholder="type here..." name="todo" autofocus required>
+        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+    </div>
+</div>
+    </form>
+    <div class="row mt-4">
+    <div class="col">
+        <ul class="list-group">
+            {% for todo in todo_item %}
+                <li class="list-group-item">{{ todo.text }}
+                <div class="float-right">
+                    <form action="delete/{{ todo.id }}" method="post">
+                        {% csrf_token %}
+                     <button type="submit" class="btn btn-danger ">Delete</button>
+                    </form>
+                </div>
+                </li>
+            {% endfor %}
+
+</ul>
+    </div>
+    </div>
+{% endblock %}
